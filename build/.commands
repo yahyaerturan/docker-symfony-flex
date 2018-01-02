@@ -1,0 +1,11 @@
+# To see IP address of of a container
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' dockersymfony_db_1
+
+# To reset Host machine DNS resolver
+sudo killall -HUP mDNSResponder;
+
+docker exec -it dockersymfony_php_1 bash
+
+# List Container Names
+docker ps --format '{{.Names}}'
+
