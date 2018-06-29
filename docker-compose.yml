@@ -20,10 +20,20 @@ services:
                 TIMEZONE: ${TIMEZONE}
         ports:
             - "9000:9000"
+        # To add a web project, follow these four steps:
+        # 1. Add project folders to volume here.
+        # 2. Create a .conf file at Docker/nginx folder.
+        # 3. ADD this .conf file to Docker/nginx/Dockerfile and RUN it in another line.
+        # 4. Add new domain to host machine's etc/hosts file pointing to 127.0.0.1
         volumes:
             - ./build/php7-fpm/cfg/custom.ini:/usr/local/etc/php/conf.d/custom.ini:cached
-            - ${SYMFONY_APP_PATH}:/var/www/symfony:cached
-            - ./.data/var/log/symfony:/var/www/symfony/var/log:cached
+            - ${SYMFONY_APP_PATH}:/var/www/symfony:rw
+            - /Users/yahyaerturan/Code/ClinicManagement:/var/www/ClinicManagement:rw
+            - /Users/yahyaerturan/Code/clinicSMF4:/var/www/clinicSMF4:rw
+            - /Users/yahyaerturan/Code/symfony4tutorial:/var/www/symfony4tutorial:rw
+            - /Users/yahyaerturan/CodeOut/doktor-bul:/var/www/doktor-bul:rw
+            - /Users/yahyaerturan/Code/cpanel_api:/var/www/cpanel_api:cached
+            - ./.data/var/log/symfony:/var/www/symfony/var/log:rw
         networks:
             network_bridge:
                 ipv4_address: 172.18.0.3

@@ -84,7 +84,7 @@ RUN "date"
 # pgsql phar posix pspell readline recode reflection session shmop simplexml snmp soap sockets
 # spl standard sysvmsg sysvsem sysvshm tidy tokenizer wddx xml xmlreader xmlrpc xmlwriter xsl zip
 
-RUN docker-php-ext-install gettext zip xsl pdo pdo_mysql && docker-php-ext-install -j$(nproc) iconv mcrypt \
+RUN docker-php-ext-install gettext zip xsl pdo pdo_mysql mysqli intl hash && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd opcache
 
@@ -111,5 +111,12 @@ RUN docker-php-ext-install gettext zip xsl pdo pdo_mysql && docker-php-ext-insta
 # RUN echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 # RUN echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 # RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+# Disable opcahce temporarily
+# RUN mkdir -p /usr/local/etc/php/conf.d/disabled && mv /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/disabled/docker-php-ext-opcache.ini
+
+RUN mkdir -p /root/.ssh
+COPY ./utils/id_rsa /root/.ssh
+COPY ./utils/id_rsa.pub /root/.ssh
 
 WORKDIR /var/www/symfony

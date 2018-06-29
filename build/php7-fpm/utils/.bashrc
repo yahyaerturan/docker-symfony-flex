@@ -33,5 +33,6 @@ alias s.container="php bin/console debug:container"
 alias s.config="php bin/console config:dump-reference"
 alias s.terminal="source /root/.bashrc"
 alias s.cache.clear="php bin/console cache:clear --no-warmup --env=dev;php bin/console cache:clear --no-warmup --env=prod"
+alias s.translation.update="php bin/console translation:update --dump-messages --force"
 
 
